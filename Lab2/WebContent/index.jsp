@@ -24,9 +24,7 @@
 		<tbody>
 			<%
 				Dao dao = new Dao();
-				DbConnection conn = DbConnection.getInstance();
-				System.out.println(conn.getConnection());
-				ArrayList<Movie> movies = dao.getAllMovies(conn.getConnection());
+				ArrayList<Movie> movies = dao.getAllMovies();
 				for (Movie movie : movies) {
 					String nameTd = "<td>" + movie.getName() + "</td>";
 					String descriptionTd = "<td>" + movie.getDescription() + "</td>";

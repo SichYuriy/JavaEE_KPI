@@ -12,7 +12,6 @@ import org.junit.Test;
  */
 public class DaoJUnitTest {
 
-	private static DbConnection conn;
 	private static Dao dao;
 
 	private static final int insertId = 228;
@@ -37,16 +36,15 @@ public class DaoJUnitTest {
 
 	@BeforeClass
 	public static void setUpClass() {
-		conn = DbConnection.getInstance();
 	}
 
 	@AfterClass
 	public static void afterClass() {
-		Movie insertMovie = dao.getMovieById(conn.getConnection(), insertId);
-		Movie updateMovie = dao.getMovieById(conn.getConnection(), updateId);
-		dao.deleteMovie(conn.getConnection(), insertMovie);
-		dao.deleteMovie(conn.getConnection(), updateMovie);
-		conn.close();
+		Movie insertMovie = dao.getMovieById(insertId);
+		Movie updateMovie = dao.getMovieById(updateId);
+		dao.deleteMovie(insertMovie);
+		dao.deleteMovie(updateMovie);
+		
 	}
 
 	@Test
@@ -59,8 +57,8 @@ public class DaoJUnitTest {
 		insertMovie.setYear(insertYear);
 		insertMovie.setDuration(insertDuration);
 		insertMovie.setDescription(insertDescription);
-		dao.insertMovie(conn.getConnection(), insertMovie, false);
-		Movie checkMovie = dao.getMovieById(conn.getConnection(), insertId);
+		dao.insertMovie(insertMovie, false);
+		Movie checkMovie = dao.getMovieById(insertId);
 		assertEquals(insertMovie, checkMovie);
 	}
 
@@ -74,14 +72,14 @@ public class DaoJUnitTest {
 		updateMovie.setDuration(updateDuration);
 		updateMovie.setDescription(updateDescription);
 
-		dao.insertMovie(conn.getConnection(), updateMovie, false);
+		dao.insertMovie(updateMovie, false);
 
 		updateMovie.setName(updateNameAfter);
 		updateMovie.setProducer(updateProducerAfter);
 
-		dao.updateMovie(conn.getConnection(), updateMovie);
+		dao.updateMovie(updateMovie);
 
-		Movie checkMovie = dao.getMovieById(conn.getConnection(), updateId);
+		Movie checkMovie = dao.getMovieById(updateId);
 
 		assertEquals(updateMovie, checkMovie);
 	}

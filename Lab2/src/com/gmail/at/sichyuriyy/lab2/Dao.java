@@ -18,21 +18,20 @@ public class Dao {
 	private final String selectAllMoviesStatement = "SELECT * FROM movies";
 	private final String selectByIdStatement = "SELECT * FROM movies WHERE id=?";
 	private final String selectByNameStatement = "SELECT * FORM movies WHERE name=?";
-	
+
 	private final String updateStatement = "UPDATE movies "
-			+ "SET name=?, producer=?, year=?, duration=?, description=? "
-			+ "WHERE id=?";
-	private final String deleteStatement = "DELETE FROM movies "
-			+ "WHERE id=?";
+			+ "SET name=?, producer=?, year=?, duration=?, description=? " + "WHERE id=?";
+	private final String deleteStatement = "DELETE FROM movies " + "WHERE id=?";
 	private final String insertAutoStatement = "INSERT INTO movies(name, producer, year, duration, description)"
 			+ "VALUES (?, ?, ?, ?, ?)";
 	private final String insertIdStatement = "INSERT INTO movies(name, producer, year, duration, description, id)"
 			+ "VALUES (?, ?, ?, ?, ?, ?)";
 
-	
-	public ArrayList<Movie> getAllMovies(Connection conn) {
+	public ArrayList<Movie> getAllMovies() {
+
 		ArrayList<Movie> movies = new ArrayList<>();
-		try (Statement statement = conn.createStatement()) {
+		try (Connection conn = ConnectionManager.getInastance().getConnection();
+				Statement statement = conn.createStatement()) {
 			ResultSet rs = statement.executeQuery(selectAllMoviesStatement);
 			while (rs.next()) {
 				Movie movie = new Movie();
@@ -49,9 +48,10 @@ public class Dao {
 		}
 		return movies;
 	}
-	
-	public Movie getMovieById(Connection conn, int id) {
-		try (PreparedStatement statement = conn.prepareStatement(selectByIdStatement)) {
+
+	public Movie getMovieById(int id) {
+		try (Connection conn = ConnectionManager.getInastance().getConnection();
+				PreparedStatement statement = conn.prepareStatement(selectByIdStatement)) {
 			statement.setInt(1, id);
 			ResultSet rs = statement.executeQuery();
 			Movie movie = null;
@@ -72,8 +72,10 @@ public class Dao {
 		return null;
 	}
 
-	public ArrayList<Movie> getMoviesByName(Connection conn, String name) {
-		try (PreparedStatement statement = conn.prepareStatement(selectByNameStatement)) {
+	public ArrayList<Movie> getMoviesByName(String name) {
+
+		try (Connection conn = ConnectionManager.getInastance().getConnection();
+				PreparedStatement statement = conn.prepareStatement(selectByNameStatement)) {
 			statement.setString(1, name);
 			ResultSet rs = statement.executeQuery();
 			ArrayList<Movie> movies = new ArrayList<>();
@@ -96,8 +98,10 @@ public class Dao {
 
 	}
 
-	public void updateMovie(Connection conn, Movie movie) {
-		try (PreparedStatement statement = conn.prepareStatement(updateStatement)) {
+	public void updateMovie(Movie movie) {
+
+		try (Connection conn = ConnectionManager.getInastance().getConnection();
+				PreparedStatement statement = conn.prepareStatement(updateStatement)) {
 
 			statement.setString(1, movie.getName());
 			statement.setString(2, movie.getProducer());
@@ -113,8 +117,10 @@ public class Dao {
 		}
 	}
 
-	public void deleteMovie(Connection conn, Movie movie) {
-		try (PreparedStatement statement = conn.prepareStatement(deleteStatement)) {
+	public void deleteMovie(Movie movie) {
+
+		try (Connection conn = ConnectionManager.getInastance().getConnection();
+				PreparedStatement statement = conn.prepareStatement(deleteStatement)) {
 			statement.setInt(1, movie.getId());
 			statement.executeUpdate();
 		} catch (SQLException ex) {
@@ -122,10 +128,12 @@ public class Dao {
 		}
 	}
 
-	public void insertMovie(Connection conn, Movie movie, boolean autoIncrement) {
+	public void insertMovie(Movie movie, boolean autoIncrement) {
+
 		String insertStatement = autoIncrement ? insertAutoStatement : insertIdStatement;
 
-		try (PreparedStatement statement = conn.prepareStatement(insertStatement)) {
+		try (Connection conn = ConnectionManager.getInastance().getConnection();
+				PreparedStatement statement = conn.prepareStatement(insertStatement)) {
 			statement.setString(1, movie.getName());
 			statement.setString(2, movie.getProducer());
 			statement.setInt(3, movie.getYear());
@@ -134,7 +142,7 @@ public class Dao {
 			if (!autoIncrement) {
 				statement.setInt(6, movie.getId());
 			}
-			
+
 			statement.executeUpdate();
 		} catch (SQLException ex) {
 			Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);

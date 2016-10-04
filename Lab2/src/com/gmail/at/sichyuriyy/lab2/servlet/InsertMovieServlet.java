@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.gmail.at.sichyuriyy.lab2.Dao;
-import com.gmail.at.sichyuriyy.lab2.DbConnection;
 import com.gmail.at.sichyuriyy.lab2.Movie;
 
 /**
@@ -20,7 +19,6 @@ public class InsertMovieServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private Dao dao;
-	private DbConnection dbConnection;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -28,7 +26,6 @@ public class InsertMovieServlet extends HttpServlet {
     public InsertMovieServlet() {
         super();
         dao = new Dao();
-        dbConnection = DbConnection.getInstance();
     }
 
 	/**
@@ -55,7 +52,7 @@ public class InsertMovieServlet extends HttpServlet {
 			movie.setProducer(movieProducer);
 			movie.setYear(movieYear);
 			movie.setDuration(movieDuration);
-			dao.insertMovie(dbConnection.getConnection(), movie, true);
+			dao.insertMovie(movie, true);
 			response.sendRedirect("index.jsp");
 			
 		} catch (java.lang.NumberFormatException e) {
