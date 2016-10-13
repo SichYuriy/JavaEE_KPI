@@ -1,7 +1,6 @@
 package com.gmail.at.sichyuriyy.lab3.servlets.movie;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,33 +13,27 @@ import com.gmail.at.sichyuriyy.lab3.jpa.entities.Movie;
 import com.gmail.at.sichyuriyy.lab3.jpa.entities.Producer;
 import com.gmail.at.sichyuriyy.lab3.jpa.entities.Rating;
 
-
-
 /**
- * Servlet implementation class InsertMovieServlet
+ * Servlet implementation class UpdateMovieServlet
  */
-@WebServlet(asyncSupported = true, urlPatterns = { "/createMovie" })
-public class InsertMovieServlet extends HttpServlet {
+@WebServlet("/updateMovie")
+public class UpdateMovieServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private ProducerDAO producerDAO = ProducerDAO.getInstance();
 	private MovieDAO movieDAO = MovieDAO.getInstance();
-	
-	
+	private ProducerDAO producerDAO = ProducerDAO.getInstance();
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertMovieServlet() {
+    public UpdateMovieServlet() {
         super();
-       
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
@@ -48,18 +41,18 @@ public class InsertMovieServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		String idStr = request.getParameter("id");
 		String title = request.getParameter("title");
 		String description = request.getParameter("description");
 		int duration = Integer.parseInt(request.getParameter("duration"));
-		
+		long id = Long.parseLong(idStr);
 		double imdbRating = Double.parseDouble(request.getParameter("imdbRating"));
 		double kinoPoiskRating = Double.parseDouble(request.getParameter("kinoPoiskRating"));
 		double rottenTomatosRating = Double.parseDouble(request.getParameter("rottenTomatosRating"));
 		
 		long producerId = Long.parseLong(request.getParameter("producerId"));
 		
-		Movie movie = new Movie();
+		Movie movie = movieDAO.getById(id);
 		
 		movie.setTitle(title);
 		movie.setDescription(description);
@@ -78,10 +71,9 @@ public class InsertMovieServlet extends HttpServlet {
 		
 		movie.setProducer(producer);
 		
-		movieDAO.create(movie);
+		movieDAO.update(movie);
 		
 		response.sendRedirect("index.jsp");
-		
 	}
 
 }

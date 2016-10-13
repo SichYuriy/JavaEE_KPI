@@ -8,22 +8,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.gmail.at.sichyuriyy.lab3.jpa.dao.MovieDAO;
 import com.gmail.at.sichyuriyy.lab3.jpa.dao.WatchListDAO;
+import com.gmail.at.sichyuriyy.lab3.jpa.entities.Movie;
 import com.gmail.at.sichyuriyy.lab3.jpa.entities.WatchList;
 
 /**
- * Servlet implementation class InsertWatchListServlet
+ * Servlet implementation class AddMovieToWatchListServlet
  */
-@WebServlet("/insertWatchList")
-public class InsertWatchListServlet extends HttpServlet {
+@WebServlet("/addMovieToWatchList")
+public class AddMovieToWatchListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private WatchListDAO dao = WatchListDAO.getInstance();
+	private MovieDAO movieDAO = MovieDAO.getInstance();
+	private WatchListDAO watchListDAO = WatchListDAO.getInstance();
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertWatchListServlet() {
+    public AddMovieToWatchListServlet() {
         super();
     }
 
@@ -38,14 +41,22 @@ public class InsertWatchListServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String name = request.getParameter("name");
-		WatchList list = new WatchList();
+		String movieIdStr = request.getParameter("movieId");
+		String watchListIdStr = request.getParameter("watchListId");
 		
-		list.setName(name);
+		long movieId = Long.parseLong(movieIdStr);
+		long watchListId = Long.parseLong(watchListIdStr);
 		
-		dao.create(list);
+		WatchList wl = watchListDAO.getById(watchListId);
+		Movie m = movieDAO.getById(movieId);
 		
-		response.sendRedirect("watchLists.jsp");
+		wl.getMovies().add(m);
+		
+		watchListDAO.update(wl);
+		
+		response.sendRedirect("editList.jsp?id=" + watchListIdStr);
+		
+	
 	}
 
 }

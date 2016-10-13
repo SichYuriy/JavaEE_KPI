@@ -3,8 +3,10 @@ package com.gmail.at.sichyuriyy.lab3.jpa.entities;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,7 +32,7 @@ public class WatchList implements Serializable {
 
 	private String name;
 	
-	@ManyToMany
+	@ManyToMany(cascade=CascadeType.MERGE, fetch=FetchType.EAGER)
 	@JoinTable(name = "WatchList_Movie", 
 	joinColumns = { @JoinColumn(name = "WatchListID") }, 
 	inverseJoinColumns = { @JoinColumn(name = "MovieID") })

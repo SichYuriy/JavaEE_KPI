@@ -8,22 +8,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.gmail.at.sichyuriyy.lab3.jpa.dao.MovieDAO;
 import com.gmail.at.sichyuriyy.lab3.jpa.dao.WatchListDAO;
+import com.gmail.at.sichyuriyy.lab3.jpa.entities.Movie;
 import com.gmail.at.sichyuriyy.lab3.jpa.entities.WatchList;
 
 /**
- * Servlet implementation class InsertWatchListServlet
+ * Servlet implementation class DeleteMovieFromWatchListServlet
  */
-@WebServlet("/insertWatchList")
-public class InsertWatchListServlet extends HttpServlet {
+@WebServlet("/deleteMovieFromWatchList")
+public class DeleteMovieFromWatchListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private WatchListDAO dao = WatchListDAO.getInstance();
+	private WatchListDAO watchListDAO = WatchListDAO.getInstance();
+	private MovieDAO movieDAO = MovieDAO.getInstance();
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertWatchListServlet() {
+    public DeleteMovieFromWatchListServlet() {
         super();
     }
 
@@ -31,21 +34,34 @@ public class InsertWatchListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String movieIdStr = request.getParameter("movieId");
+		String watchListIdStr = request.getParameter("listId");
+		
+		long movieId = Long.parseLong(movieIdStr);
+		long watchListId = Long.parseLong(watchListIdStr);
+		
+		WatchList watchList = watchListDAO.getById(watchListId);
+		
+		for (Movie m : watchList.getMovies()) {
+			if (m.getId() == movieId) {
+				watchList.getMovies().remove(m);
+				break;
+			}
+		}
+		
+		
+		watchListDAO.update(watchList);
+		
+		response.sendRedirect("editList.jsp?id=" + watchListIdStr);
+		
+	
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String name = request.getParameter("name");
-		WatchList list = new WatchList();
-		
-		list.setName(name);
-		
-		dao.create(list);
-		
-		response.sendRedirect("watchLists.jsp");
+		doGet(request, response);
 	}
 
 }

@@ -12,10 +12,10 @@ import com.gmail.at.sichyuriyy.lab3.jpa.dao.WatchListDAO;
 import com.gmail.at.sichyuriyy.lab3.jpa.entities.WatchList;
 
 /**
- * Servlet implementation class InsertWatchListServlet
+ * Servlet implementation class DeleteWatchListServlet
  */
-@WebServlet("/insertWatchList")
-public class InsertWatchListServlet extends HttpServlet {
+@WebServlet("/deleteWatchList")
+public class DeleteWatchListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private WatchListDAO dao = WatchListDAO.getInstance();
@@ -23,7 +23,7 @@ public class InsertWatchListServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertWatchListServlet() {
+    public DeleteWatchListServlet() {
         super();
     }
 
@@ -31,21 +31,23 @@ public class InsertWatchListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String watchListIdStr = request.getParameter("id");
+		
+		long id = Long.parseLong(watchListIdStr);
+		
+		WatchList list = dao.getById(id);
+		
+		dao.delete(list);
+		
+		response.sendRedirect("watchLists.jsp");
+		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String name = request.getParameter("name");
-		WatchList list = new WatchList();
-		
-		list.setName(name);
-		
-		dao.create(list);
-		
-		response.sendRedirect("watchLists.jsp");
+		doGet(request, response);
 	}
 
 }
