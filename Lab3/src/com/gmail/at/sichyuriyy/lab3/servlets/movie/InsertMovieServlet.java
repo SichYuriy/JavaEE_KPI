@@ -52,6 +52,7 @@ public class InsertMovieServlet extends HttpServlet {
 		String title = request.getParameter("title");
 		String description = request.getParameter("description");
 		int duration = Integer.parseInt(request.getParameter("duration"));
+		int year = Integer.parseInt(request.getParameter("year"));
 		
 		double imdbRating = Double.parseDouble(request.getParameter("imdbRating"));
 		double kinoPoiskRating = Double.parseDouble(request.getParameter("kinoPoiskRating"));
@@ -64,6 +65,7 @@ public class InsertMovieServlet extends HttpServlet {
 		movie.setTitle(title);
 		movie.setDescription(description);
 		movie.setDuration(duration);
+		movie.setYear(year);
 		
 		
 		Rating rating = new Rating();
