@@ -28,9 +28,9 @@ public class ProducerDAO extends DAO<Producer> {
 	}
 
 	@Override
-	public void delete(Producer producer) {
+	public void delete(long id) {
 		beginTransaction();
-		Producer p = entityManager.find(Producer.class, producer.getId());
+		Producer p = entityManager.find(Producer.class, id);
 		entityManager.remove(p);
 		endTransaction();
 

@@ -35,8 +35,7 @@ public class DeleteProducerServlet extends HttpServlet {
 			throws ServletException, IOException {
 		long id = Long.parseLong(request.getParameter("id"));
 
-		Producer p = dao.getById(id);
-		dao.delete(p);
+		dao.delete(id);
 
 		response.sendRedirect("producers.jsp");
 

@@ -35,9 +35,7 @@ public class DeleteWatchListServlet extends HttpServlet {
 		
 		long id = Long.parseLong(watchListIdStr);
 		
-		WatchList list = dao.getById(id);
-		
-		dao.delete(list);
+		dao.delete(id);
 		
 		response.sendRedirect("watchLists.jsp");
 		

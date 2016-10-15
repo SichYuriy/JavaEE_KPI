@@ -15,7 +15,7 @@ public abstract class DAO<T> {
 	protected EntityTransaction entityTransaction;
 	
 	public abstract void create(T obj);
-	public abstract void delete(T obj);
+	public abstract void delete(long id);
 	public abstract void update(T obj);
 	public abstract List<T> getAll();
 	public abstract T getById(long id);

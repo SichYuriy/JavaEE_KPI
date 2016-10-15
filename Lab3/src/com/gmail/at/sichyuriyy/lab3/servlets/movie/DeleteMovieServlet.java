@@ -45,7 +45,7 @@ public class DeleteMovieServlet extends HttpServlet {
 			watchListDAO.update(list);
 		}
 		
-		movieDAO.delete(movie);
+		movieDAO.delete(id);
 		
 		response.sendRedirect("index.jsp");
 	}

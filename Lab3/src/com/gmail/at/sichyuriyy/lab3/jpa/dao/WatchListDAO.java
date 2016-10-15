@@ -30,9 +30,9 @@ public class WatchListDAO extends DAO<WatchList> {
 	}
 
 	@Override
-	public void delete(WatchList watchList) {
+	public void delete(long id) {
 		beginTransaction();
-		WatchList wl = entityManager.find(WatchList.class, watchList.getId());
+		WatchList wl = entityManager.find(WatchList.class, id);
 		entityManager.remove(wl);
 		endTransaction();
 		
@@ -59,7 +59,7 @@ public class WatchListDAO extends DAO<WatchList> {
 	public WatchList getById(long id) {
 		beginTransaction();
 		WatchList watchList = entityManager.find(WatchList.class, id);
-		beginTransaction();
+		endTransaction();
 		return watchList;
 	}
 

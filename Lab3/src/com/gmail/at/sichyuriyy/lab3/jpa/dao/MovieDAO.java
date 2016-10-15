@@ -30,9 +30,9 @@ public class MovieDAO extends DAO<Movie> {
 	}
 
 	@Override
-	public void delete(Movie movie) {
+	public void delete(long id) {
 		beginTransaction();
-		Movie m = entityManager.find(Movie.class, movie.getId());
+		Movie m = entityManager.find(Movie.class, id);
 		entityManager.remove(m);
 		endTransaction();
 		
