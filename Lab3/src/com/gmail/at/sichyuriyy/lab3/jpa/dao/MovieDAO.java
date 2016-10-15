@@ -2,9 +2,6 @@ package com.gmail.at.sichyuriyy.lab3.jpa.dao;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-
 import com.gmail.at.sichyuriyy.lab3.jpa.entities.Movie;
 
 public class MovieDAO extends DAO<Movie> {
@@ -25,71 +22,43 @@ public class MovieDAO extends DAO<Movie> {
 
 	@Override
 	public void create(Movie movie) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-		
-		entityTransaction.begin();
+		beginTransaction();
 		entityManager.persist(movie);
-		entityTransaction.commit();
+		endTransaction();
 		
-		entityManager.close();
 		
 	}
 
 	@Override
 	public void delete(Movie movie) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-		
-		entityTransaction.begin();
+		beginTransaction();
 		Movie m = entityManager.find(Movie.class, movie.getId());
 		entityManager.remove(m);
-		entityTransaction.commit();
-		
-		entityManager.close();
+		endTransaction();
 		
 	}
 
 	@Override
 	public void update(Movie movie) {
-		
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-		
-		entityTransaction.begin();
+		beginTransaction();
 		entityManager.merge(movie);
-		entityTransaction.commit();
-		
-		entityManager.close();
+		endTransaction();
 		
 	}
 
 	@Override
 	public List<Movie> getAll() {
-		System.out.println(entityManagerFactory == null);
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-		
-		entityTransaction.begin();
-		
+		beginTransaction();
 		List<Movie> movies = entityManager.createNamedQuery("findAllMovies", Movie.class).getResultList();
-		entityTransaction.commit();
-		
-		entityManager.close();
+		endTransaction();
 		return movies;
 	}
 
 	@Override
 	public Movie getById(long id) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-		
-		entityTransaction.begin();
+		beginTransaction();
 		Movie movie = entityManager.find(Movie.class, id);
-		entityTransaction.commit();
-		
-		entityManager.close();
+		endTransaction();
 		return movie;
 	}
 

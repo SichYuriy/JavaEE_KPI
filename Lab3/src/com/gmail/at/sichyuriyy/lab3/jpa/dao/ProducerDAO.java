@@ -2,9 +2,6 @@ package com.gmail.at.sichyuriyy.lab3.jpa.dao;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-
 import com.gmail.at.sichyuriyy.lab3.jpa.entities.Producer;
 
 public class ProducerDAO extends DAO<Producer> {
@@ -24,67 +21,42 @@ public class ProducerDAO extends DAO<Producer> {
 
 	@Override
 	public void create(Producer producer) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-
-		entityTransaction.begin();
+		beginTransaction();
 		entityManager.persist(producer);
-		entityTransaction.commit();
-
-		entityManager.close();
+		endTransaction();
 
 	}
 
 	@Override
 	public void delete(Producer producer) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-
-		entityTransaction.begin();
+		beginTransaction();
 		Producer p = entityManager.find(Producer.class, producer.getId());
 		entityManager.remove(p);
-		entityTransaction.commit();
-
-		entityManager.close();
+		endTransaction();
 
 	}
 
 	@Override
 	public void update(Producer producer) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-
-		entityTransaction.begin();
+		beginTransaction();
 		entityManager.merge(producer);
-		entityTransaction.commit();
-
-		entityManager.close();
+		endTransaction();
 
 	}
 
 	@Override
 	public List<Producer> getAll() {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-
-		entityTransaction.begin();
+		beginTransaction();
 		List<Producer> producers = entityManager.createNamedQuery("findAllProducers", Producer.class).getResultList();
-		entityTransaction.commit();
-
-		entityManager.close();
+		endTransaction();
 		return producers;
 	}
 
 	@Override
 	public Producer getById(long id) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-
-		entityTransaction.begin();
+		beginTransaction();
 		Producer producer = entityManager.find(Producer.class, id);
-		entityTransaction.commit();
-
-		entityManager.close();
+		endTransaction();
 		return producer;
 	}
 

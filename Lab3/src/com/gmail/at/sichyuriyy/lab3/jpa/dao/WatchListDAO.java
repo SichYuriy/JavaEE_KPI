@@ -2,9 +2,6 @@ package com.gmail.at.sichyuriyy.lab3.jpa.dao;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-
 import com.gmail.at.sichyuriyy.lab3.jpa.entities.WatchList;
 
 public class WatchListDAO extends DAO<WatchList> {
@@ -24,10 +21,7 @@ public class WatchListDAO extends DAO<WatchList> {
 
 	@Override
 	public void create(WatchList watchList) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-
-		entityTransaction.begin();
+		beginTransaction();
 		entityManager.persist(watchList);
 		entityTransaction.commit();
 
@@ -37,55 +31,35 @@ public class WatchListDAO extends DAO<WatchList> {
 
 	@Override
 	public void delete(WatchList watchList) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-
-		entityTransaction.begin();
+		beginTransaction();
 		WatchList wl = entityManager.find(WatchList.class, watchList.getId());
 		entityManager.remove(wl);
-		entityTransaction.commit();
-
-		entityManager.close();
+		endTransaction();
 		
 	}
 
 	@Override
 	public void update(WatchList watchList) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-
-		entityTransaction.begin();
+		beginTransaction();
 		entityManager.merge(watchList);
-		entityTransaction.commit();
-
-		entityManager.close();
+		endTransaction();
 		
 	}
 
 	@Override
 	public List<WatchList> getAll() {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-
-		entityTransaction.begin();
+		beginTransaction();
 		List<WatchList> lists = entityManager.createNamedQuery("getAllWatchLists", WatchList.class).getResultList();
-		entityTransaction.commit();
-
-		entityManager.close();
+		endTransaction();
 		return lists;
 		
 	}
 
 	@Override
 	public WatchList getById(long id) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-
-		entityTransaction.begin();
+		beginTransaction();
 		WatchList watchList = entityManager.find(WatchList.class, id);
-		entityTransaction.commit();
-
-		entityManager.close();
+		beginTransaction();
 		return watchList;
 	}
 
