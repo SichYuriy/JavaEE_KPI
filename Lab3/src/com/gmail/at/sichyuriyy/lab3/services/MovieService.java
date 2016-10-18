@@ -4,18 +4,15 @@ import java.util.List;
 
 import com.gmail.at.sichyuriyy.lab3.jpa.dao.MovieDAO;
 import com.gmail.at.sichyuriyy.lab3.jpa.dao.ProducerDAO;
-import com.gmail.at.sichyuriyy.lab3.jpa.dao.WatchListDAO;
 import com.gmail.at.sichyuriyy.lab3.jpa.entities.Movie;
 import com.gmail.at.sichyuriyy.lab3.jpa.entities.Producer;
 import com.gmail.at.sichyuriyy.lab3.jpa.entities.Rating;
-import com.gmail.at.sichyuriyy.lab3.jpa.entities.WatchList;
 
 public class MovieService implements ServiceCRUD<Movie> {
 
 	private MovieDAO movieDAO = MovieDAO.getInstance();
 	
 	private ProducerDAO producerDAO = ProducerDAO.getInstance();
-	private WatchListDAO watchListDAO = WatchListDAO.getInstance();
 
 	@Override
 	public void create(Movie movie) {
@@ -77,12 +74,6 @@ public class MovieService implements ServiceCRUD<Movie> {
 
 	@Override
 	public void delete(long id) {
-		Movie movie = movieDAO.getById(id);
-
-		for (WatchList list : movie.getWatchLists()) {
-			list.getMovies().remove(movie);
-			watchListDAO.update(list);
-		}
 		movieDAO.delete(id);
 	}
 

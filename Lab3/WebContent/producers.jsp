@@ -29,7 +29,7 @@
 					String lastNameTd = "<td>" + producer.getLastName() + "</td>";
 					String editButton = "<a href=\"editProducer.jsp?id=" + producer.getId() +"\"><button>Edit</Button></a>";
 					String deleteButton = "<a href=deleteProducer?id=" + producer.getId() +"><button>Delete</Button></a>";
-					String buttonsTd = "<td>" + editButton + "</td>";
+					String buttonsTd = "<td>" + editButton + deleteButton + "</td>";
 					String movieRow = "<tr>" + firstNameTd + lastNameTd + buttonsTd + "</tr>";
 					out.println(movieRow);
 				}

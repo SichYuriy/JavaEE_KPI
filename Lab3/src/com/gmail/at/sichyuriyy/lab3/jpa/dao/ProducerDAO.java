@@ -2,7 +2,9 @@ package com.gmail.at.sichyuriyy.lab3.jpa.dao;
 
 import java.util.List;
 
+import com.gmail.at.sichyuriyy.lab3.jpa.entities.Movie;
 import com.gmail.at.sichyuriyy.lab3.jpa.entities.Producer;
+import com.gmail.at.sichyuriyy.lab3.jpa.entities.WatchList;
 
 public class ProducerDAO extends DAO<Producer> {
 
@@ -31,6 +33,11 @@ public class ProducerDAO extends DAO<Producer> {
 	public void delete(long id) {
 		beginTransaction();
 		Producer p = entityManager.find(Producer.class, id);
+		for (Movie m : p.getMovies()) {
+			for (WatchList list : m.getWatchLists()) {
+				list.getMovies().remove(m);
+			}
+		}
 		entityManager.remove(p);
 		endTransaction();
 

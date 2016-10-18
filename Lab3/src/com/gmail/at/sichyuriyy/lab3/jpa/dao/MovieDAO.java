@@ -3,6 +3,7 @@ package com.gmail.at.sichyuriyy.lab3.jpa.dao;
 import java.util.List;
 
 import com.gmail.at.sichyuriyy.lab3.jpa.entities.Movie;
+import com.gmail.at.sichyuriyy.lab3.jpa.entities.WatchList;
 
 public class MovieDAO extends DAO<Movie> {
 	
@@ -33,6 +34,9 @@ public class MovieDAO extends DAO<Movie> {
 	public void delete(long id) {
 		beginTransaction();
 		Movie m = entityManager.find(Movie.class, id);
+		for (WatchList list : m.getWatchLists()) {
+			list.getMovies().remove(m);
+		}
 		entityManager.remove(m);
 		endTransaction();
 		
