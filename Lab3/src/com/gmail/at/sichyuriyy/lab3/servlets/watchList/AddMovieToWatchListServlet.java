@@ -8,10 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.gmail.at.sichyuriyy.lab3.jpa.dao.MovieDAO;
-import com.gmail.at.sichyuriyy.lab3.jpa.dao.WatchListDAO;
-import com.gmail.at.sichyuriyy.lab3.jpa.entities.Movie;
-import com.gmail.at.sichyuriyy.lab3.jpa.entities.WatchList;
+import com.gmail.at.sichyuriyy.lab3.services.WatchListService;
 
 /**
  * Servlet implementation class AddMovieToWatchListServlet
@@ -20,8 +17,7 @@ import com.gmail.at.sichyuriyy.lab3.jpa.entities.WatchList;
 public class AddMovieToWatchListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private MovieDAO movieDAO = MovieDAO.getInstance();
-	private WatchListDAO watchListDAO = WatchListDAO.getInstance();
+	private WatchListService watchListService = new WatchListService();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -47,12 +43,7 @@ public class AddMovieToWatchListServlet extends HttpServlet {
 		long movieId = Long.parseLong(movieIdStr);
 		long watchListId = Long.parseLong(watchListIdStr);
 		
-		WatchList wl = watchListDAO.getById(watchListId);
-		Movie m = movieDAO.getById(movieId);
-		
-		wl.getMovies().add(m);
-		
-		watchListDAO.update(wl);
+		watchListService.addMovieToWatchList(watchListId, movieId);
 		
 		response.sendRedirect("editList.jsp?id=" + watchListIdStr);
 		

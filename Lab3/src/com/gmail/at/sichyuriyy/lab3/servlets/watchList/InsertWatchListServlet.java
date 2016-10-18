@@ -8,8 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.gmail.at.sichyuriyy.lab3.jpa.dao.WatchListDAO;
-import com.gmail.at.sichyuriyy.lab3.jpa.entities.WatchList;
+import com.gmail.at.sichyuriyy.lab3.services.WatchListService;
 
 /**
  * Servlet implementation class InsertWatchListServlet
@@ -18,7 +17,7 @@ import com.gmail.at.sichyuriyy.lab3.jpa.entities.WatchList;
 public class InsertWatchListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private WatchListDAO dao = WatchListDAO.getInstance();
+	private WatchListService watchListService = new WatchListService();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -39,11 +38,8 @@ public class InsertWatchListServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("name");
-		WatchList list = new WatchList();
 		
-		list.setName(name);
-		
-		dao.create(list);
+		watchListService.create(name);
 		
 		response.sendRedirect("watchLists.jsp");
 	}

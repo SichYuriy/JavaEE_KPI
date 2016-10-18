@@ -8,10 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.gmail.at.sichyuriyy.lab3.jpa.dao.MovieDAO;
-import com.gmail.at.sichyuriyy.lab3.jpa.dao.WatchListDAO;
-import com.gmail.at.sichyuriyy.lab3.jpa.entities.Movie;
-import com.gmail.at.sichyuriyy.lab3.jpa.entities.WatchList;
+import com.gmail.at.sichyuriyy.lab3.services.WatchListService;
 
 /**
  * Servlet implementation class DeleteMovieFromWatchListServlet
@@ -20,8 +17,7 @@ import com.gmail.at.sichyuriyy.lab3.jpa.entities.WatchList;
 public class DeleteMovieFromWatchListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private WatchListDAO watchListDAO = WatchListDAO.getInstance();
-	private MovieDAO movieDAO = MovieDAO.getInstance();
+	private WatchListService watchListService = new WatchListService();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -40,17 +36,7 @@ public class DeleteMovieFromWatchListServlet extends HttpServlet {
 		long movieId = Long.parseLong(movieIdStr);
 		long watchListId = Long.parseLong(watchListIdStr);
 		
-		WatchList watchList = watchListDAO.getById(watchListId);
-		
-		for (Movie m : watchList.getMovies()) {
-			if (m.getId() == movieId) {
-				watchList.getMovies().remove(m);
-				break;
-			}
-		}
-		
-		
-		watchListDAO.update(watchList);
+		watchListService.deleteMovieFromWatchList(watchListId, movieId);
 		
 		response.sendRedirect("editList.jsp?id=" + watchListIdStr);
 		

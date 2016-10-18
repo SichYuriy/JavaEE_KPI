@@ -8,8 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.gmail.at.sichyuriyy.lab3.jpa.dao.ProducerDAO;
-import com.gmail.at.sichyuriyy.lab3.jpa.entities.Producer;
+import com.gmail.at.sichyuriyy.lab3.services.ProducerService;
 
 /**
  * Servlet implementation class InsertProducerServlet
@@ -17,6 +16,8 @@ import com.gmail.at.sichyuriyy.lab3.jpa.entities.Producer;
 @WebServlet("/createProducer")
 public class InsertProducerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private ProducerService producerService = new ProducerService();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -38,12 +39,8 @@ public class InsertProducerServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String firstName = request.getParameter("firstName");
 		String lastName = request.getParameter("lastName");
-		Producer producer = new Producer();
-		producer.setFirstName(firstName);
-		producer.setLastName(lastName);
 		
-		ProducerDAO dao = ProducerDAO.getInstance();
-		dao.create(producer);
+		producerService.create(firstName, lastName);
 		
 		
 		response.sendRedirect("producers.jsp");

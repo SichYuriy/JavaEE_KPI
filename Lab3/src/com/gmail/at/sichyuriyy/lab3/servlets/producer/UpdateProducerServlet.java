@@ -8,8 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.gmail.at.sichyuriyy.lab3.jpa.dao.ProducerDAO;
-import com.gmail.at.sichyuriyy.lab3.jpa.entities.Producer;
+import com.gmail.at.sichyuriyy.lab3.services.ProducerService;
 
 /**
  * Servlet implementation class UpdateProducer
@@ -17,13 +16,14 @@ import com.gmail.at.sichyuriyy.lab3.jpa.entities.Producer;
 @WebServlet("/updateProducer")
 public class UpdateProducerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private ProducerService producerService = new ProducerService();
        
     /**
      * @see HttpServlet#HttpServlet()
      */
     public UpdateProducerServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -42,11 +42,7 @@ public class UpdateProducerServlet extends HttpServlet {
 		String lastName = request.getParameter("lastName");
 		long id = Long.parseLong(idStr);
 		
-		ProducerDAO dao = ProducerDAO.getInstance();
-		Producer producer = dao.getById(id);
-		producer.setFirstName(firstName);
-		producer.setLastName(lastName);
-		dao.update(producer);
+		producerService.update(id, firstName, lastName);
 		
 		response.sendRedirect("producers.jsp");
 	}

@@ -8,8 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.gmail.at.sichyuriyy.lab3.jpa.dao.ProducerDAO;
-import com.gmail.at.sichyuriyy.lab3.jpa.entities.Producer;
+import com.gmail.at.sichyuriyy.lab3.services.ProducerService;
 
 /**
  * Servlet implementation class DeleteProducerServlet
@@ -18,7 +17,7 @@ import com.gmail.at.sichyuriyy.lab3.jpa.entities.Producer;
 public class DeleteProducerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private ProducerDAO dao = ProducerDAO.getInstance();
+	private ProducerService producerService = new  ProducerService();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -35,7 +34,7 @@ public class DeleteProducerServlet extends HttpServlet {
 			throws ServletException, IOException {
 		long id = Long.parseLong(request.getParameter("id"));
 
-		dao.delete(id);
+		producerService.delete(id);
 
 		response.sendRedirect("producers.jsp");
 

@@ -8,8 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.gmail.at.sichyuriyy.lab3.jpa.dao.WatchListDAO;
-import com.gmail.at.sichyuriyy.lab3.jpa.entities.WatchList;
+import com.gmail.at.sichyuriyy.lab3.services.WatchListService;
 
 /**
  * Servlet implementation class DeleteWatchListServlet
@@ -18,7 +17,7 @@ import com.gmail.at.sichyuriyy.lab3.jpa.entities.WatchList;
 public class DeleteWatchListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private WatchListDAO dao = WatchListDAO.getInstance();
+	private WatchListService watchListService = new WatchListService();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -35,7 +34,7 @@ public class DeleteWatchListServlet extends HttpServlet {
 		
 		long id = Long.parseLong(watchListIdStr);
 		
-		dao.delete(id);
+		watchListService.delete(id);
 		
 		response.sendRedirect("watchLists.jsp");
 		

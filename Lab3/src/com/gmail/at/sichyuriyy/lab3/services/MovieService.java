@@ -1,0 +1,99 @@
+package com.gmail.at.sichyuriyy.lab3.services;
+
+import java.util.List;
+
+import com.gmail.at.sichyuriyy.lab3.jpa.dao.MovieDAO;
+import com.gmail.at.sichyuriyy.lab3.jpa.dao.ProducerDAO;
+import com.gmail.at.sichyuriyy.lab3.jpa.dao.WatchListDAO;
+import com.gmail.at.sichyuriyy.lab3.jpa.entities.Movie;
+import com.gmail.at.sichyuriyy.lab3.jpa.entities.Producer;
+import com.gmail.at.sichyuriyy.lab3.jpa.entities.Rating;
+import com.gmail.at.sichyuriyy.lab3.jpa.entities.WatchList;
+
+public class MovieService implements ServiceCRUD<Movie> {
+
+	private MovieDAO movieDAO = MovieDAO.getInstance();
+	
+	private ProducerDAO producerDAO = ProducerDAO.getInstance();
+	private WatchListDAO watchListDAO = WatchListDAO.getInstance();
+
+	@Override
+	public void create(Movie movie) {
+		movieDAO.create(movie);
+	}
+
+	public void create(long producerId, String title, int year, int duration, String description, double imdbRating,
+			double kinoPoiskRating, double rottenTomatosRating) {
+		Movie movie = new Movie();
+
+		movie.setTitle(title);
+		movie.setDescription(description);
+		movie.setDuration(duration);
+		movie.setYear(year);
+
+		Rating rating = new Rating();
+
+		rating.setImdbRating(imdbRating);
+		rating.setKinoPoiskRating(kinoPoiskRating);
+		rating.setRottenTomatosRating(rottenTomatosRating);
+
+		movie.setRating(rating);
+
+		Producer producer = producerDAO.getById(producerId);
+
+		movie.setProducer(producer);
+
+		this.create(movie);
+
+	}
+
+	@Override
+	public void update(Movie movie) {
+		movieDAO.update(movie);
+
+	}
+
+	public void update(long movieId, long producerId, String title, int year, int duration, String description,
+			double imdbRating, double kinoPoiskRating, double rottenTomatosRating) {
+		Movie movie = movieDAO.getById(movieId);
+
+		movie.setTitle(title);
+		movie.setDescription(description);
+		movie.setDuration(duration);
+
+		Rating rating = new Rating();
+
+		rating.setImdbRating(imdbRating);
+		rating.setKinoPoiskRating(kinoPoiskRating);
+		rating.setRottenTomatosRating(rottenTomatosRating);
+
+		movie.setRating(rating);
+
+		Producer producer = producerDAO.getById(producerId);
+		movie.setProducer(producer);
+
+		update(movie);
+	}
+
+	@Override
+	public void delete(long id) {
+		Movie movie = movieDAO.getById(id);
+
+		for (WatchList list : movie.getWatchLists()) {
+			list.getMovies().remove(movie);
+			watchListDAO.update(list);
+		}
+		movieDAO.delete(id);
+	}
+
+	@Override
+	public Movie getById(long id) {
+		return movieDAO.getById(id);
+	}
+
+	@Override
+	public List<Movie> getAll() {
+		return movieDAO.getAll();
+	}
+
+}

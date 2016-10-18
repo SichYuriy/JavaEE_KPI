@@ -8,10 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.gmail.at.sichyuriyy.lab3.jpa.dao.MovieDAO;
-import com.gmail.at.sichyuriyy.lab3.jpa.dao.WatchListDAO;
-import com.gmail.at.sichyuriyy.lab3.jpa.entities.Movie;
-import com.gmail.at.sichyuriyy.lab3.jpa.entities.WatchList;
+import com.gmail.at.sichyuriyy.lab3.services.MovieService;
 
 /**
  * Servlet implementation class DeleteMovieServlet
@@ -20,15 +17,13 @@ import com.gmail.at.sichyuriyy.lab3.jpa.entities.WatchList;
 public class DeleteMovieServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private MovieDAO movieDAO = MovieDAO.getInstance();
-	private WatchListDAO watchListDAO = WatchListDAO.getInstance();
+	private MovieService movieService = new MovieService();
        
     /**
      * @see HttpServlet#HttpServlet()
      */
     public DeleteMovieServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -38,14 +33,7 @@ public class DeleteMovieServlet extends HttpServlet {
 		String idStr = request.getParameter("id");
 		long id = Long.parseLong(idStr);
 		
-		Movie movie = movieDAO.getById(id);
-		
-		for (WatchList list : movie.getWatchLists()) {
-			list.getMovies().remove(movie);
-			watchListDAO.update(list);
-		}
-		
-		movieDAO.delete(id);
+		movieService.delete(id);
 		
 		response.sendRedirect("index.jsp");
 	}
