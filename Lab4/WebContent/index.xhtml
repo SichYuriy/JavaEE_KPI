@@ -20,39 +20,39 @@
 						<f:facet name="header">
               Title
       			</f:facet>
-      			#{movie.getTitle()}
+      			#{movie.title}
    					</h:column>
 					<h:column>
 						<f:facet name="header">
               	Producer
      					</f:facet>
-     					#{movie.getProducer().getFirstName()} #{movie.getProducer().getLastName()}
+     					#{movie.producer.firstName} #{movie.producer.lastName}
  						</h:column>
 					<h:column>
 						<f:facet name="header">
               Year
      				</f:facet>
-     				#{movie.getYear()}
+     				#{movie.year}
  					</h:column>
 					<h:column>
 						<f:facet name="header">
               Duration
       			</f:facet>
-      			#{movie.getDuration()}
+      			#{movie.duration}
    				</h:column>
 					<h:column>
 						<f:facet name="header">
               Description
      				</f:facet>
-      			#{movie.getDescription()}
+      			#{movie.description}
 					</h:column>
 					<h:column>
 						<f:facet name="header">
               Rating
       			</f:facet>
-      			#{movie.getRating().getImdbRating()}
-     				/#{movie.getRating().getKinoPoiskRating()}
-      			/#{movie.getRating().getRottenTomatosRating()} 
+      			#{movie.rating.imdbRating}
+     				/#{movie.rating.kinoPoiskRating}
+      			/#{movie.rating.rottenTomatosRating} 
  					</h:column>
 					<h:column>
 						<f:facet name="header">
