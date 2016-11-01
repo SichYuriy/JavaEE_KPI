@@ -11,11 +11,12 @@
 	<ui:composition template="./dataViewTemplate.xhtml">
 		<ui:define name="title">Movies</ui:define>
 		<ui:define name="header">
-			<h2>Movies</h2>
+			<h2>Movies:</h2>
 		</ui:define>
 		<ui:define name="content">
 			<h:form>
-				<h:dataTable value="#{movieService.getAll()}" var="movie">
+				<h:dataTable value="#{movieService.getAll()}" var="movie"
+					styleClass="table table-bordered table-hover">
 					<h:column>
 						<f:facet name="header">
               Title
@@ -56,18 +57,30 @@
  					</h:column>
 					<h:column>
 						<f:facet name="header">
-              buttons
+              
       			</f:facet>
 
 						<h:commandButton value="edit" type="submit"
-							action="#{editService.editMovie(movie)}" outcome="editMovie" />
+							action="#{editService.editMovie(movie)}" 
+							styleClass="btn btn-success"/>
 						<h:commandButton value="delete"
-							action="#{movieService.delete(movie.getId())}" />
+							action="#{movieService.delete(movie.getId())}" 
+							styleClass="btn btn-danger"/>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+              
+      			</f:facet>
+
+						<h:commandButton value="+" type="submit"
+							action="#{editService.addMovieToWatchList(movie)}"
+							styleClass="btn btn-primary"/>
+						
 					</h:column>
 				</h:dataTable>
 			</h:form>
 
-			<h:button value="Add" outcome="addMovie" />
+			<h:button value="Add movie" outcome="addMovie" styleClass="btn btn-primary"/>
 		</ui:define>
 	</ui:composition>
 </h:body>

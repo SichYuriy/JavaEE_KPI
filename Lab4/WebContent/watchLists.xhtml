@@ -11,11 +11,12 @@
 	<ui:composition template="./dataViewTemplate.xhtml">
 		<ui:define name="title">WathLists</ui:define>
 		<ui:define name="header">
-			<h2>WatchLists</h2>
+			<h2>WatchLists:</h2>
 		</ui:define>
 		<ui:define name="content">
 			<h:form>
-				<h:dataTable value="#{watchListService.getAll()}" var="list">
+				<h:dataTable value="#{watchListService.getAll()}" var="list"
+					styleClass="table table-bordered table-hover">
 					<h:column>
 						<f:facet name="header">
               Name
@@ -28,14 +29,17 @@
       			</f:facet>
 
 						<h:commandButton value="edit" type="submit"
-							action="#{editService.editWatchList(list)}" outcome="editWatchList" />
+							action="#{editService.editWatchList(list)}"
+							styleClass="btn btn-success"/>
 						<h:commandButton value="delete"
-							action="#{watchListService.delete(list.getId())}" />
+							action="#{watchListService.delete(list.getId())}" 
+							styleClass="btn btn-danger"/>
 					</h:column>
 				</h:dataTable>
 			</h:form>
 
-			<h:button value="Add" outcome="addWathList" />
+			<h:button value="Add" outcome="addWathList" 
+				styleClass="btn btn-primary"/>
 		</ui:define>
 	</ui:composition>
 </h:body>
