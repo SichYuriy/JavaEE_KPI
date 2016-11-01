@@ -15,17 +15,24 @@ public class SessionServiceBean {
 	private ProducerBean producer;
 	private WatchListBean watchList;
 	
+	public String addMovieToWatchList(Movie movie) {
+		this.movie = new MovieBean(movie);
+		return "addMovieToWatchList";
+	}
+	
 	public String editMovie(Movie movie) {
 		this.movie = new MovieBean(movie);
 		return "editMovie";
 	}
 	
-	public void editProducer(Producer producer) {
+	public String editProducer(Producer producer) {
 		this.producer = new ProducerBean(producer);
+		return "editProducer";
 	}
 	
-	public void editWatchList(WatchList list) {
+	public String editWatchList(WatchList list) {
 		this.watchList = new WatchListBean(list);
+		return "editWatchList";
 	}
 
 	public MovieBean getMovie() {
