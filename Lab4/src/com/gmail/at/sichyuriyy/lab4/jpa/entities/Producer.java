@@ -29,7 +29,7 @@ public class Producer implements Serializable {
 	private long id;
 	
 	private String firstName;
-	private String LastName;
+	private String lastName;
 	
 	@OneToMany(mappedBy="producer", cascade=CascadeType.ALL)
 	private List<Movie> movies;
@@ -58,11 +58,11 @@ public class Producer implements Serializable {
 	}
 
 	public String getLastName() {
-		return LastName;
+		return lastName;
 	}
 
 	public void setLastName(String lastName) {
-		LastName = lastName;
+		this.lastName = lastName;
 	}
 
 	public long getId() {

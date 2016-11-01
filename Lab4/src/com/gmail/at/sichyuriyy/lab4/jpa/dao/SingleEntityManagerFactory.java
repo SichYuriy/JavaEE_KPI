@@ -9,7 +9,7 @@ public class SingleEntityManagerFactory {
 	
 	public static EntityManagerFactory getInstace() {
 		if (factory == null) {
-			factory = Persistence.createEntityManagerFactory("Lab3");
+			factory = Persistence.createEntityManagerFactory("Lab4");
 		}
 		return factory;
 	}

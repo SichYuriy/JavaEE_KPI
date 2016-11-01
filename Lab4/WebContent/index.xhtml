@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<h:head>
+</h:head>
+<h:body>
+	<ui:composition template="./dataViewTemplate.xhtml">
+		<ui:define name="title">Movies</ui:define>
+		<ui:define name="header">
+			<h2>Movies</h2>
+		</ui:define>
+		<ui:define name="content">
+			<h:form>
+				<h:dataTable value="#{movieService.getAll()}" var="movie">
+					<h:column>
+						<f:facet name="header">
+              Title
+      			</f:facet>
+      			#{movie.getTitle()}
+   					</h:column>
+					<h:column>
+						<f:facet name="header">
+              	Producer
+     					</f:facet>
+     					#{movie.getProducer().getFirstName()} #{movie.getProducer().getLastName()}
+ 						</h:column>
+					<h:column>
+						<f:facet name="header">
+              Year
+     				</f:facet>
+     				#{movie.getYear()}
+ 					</h:column>
+					<h:column>
+						<f:facet name="header">
+              Duration
+      			</f:facet>
+      			#{movie.getDuration()}
+   				</h:column>
+					<h:column>
+						<f:facet name="header">
+              Description
+     				</f:facet>
+      			#{movie.getDescription()}
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+              Rating
+      			</f:facet>
+      			#{movie.getRating().getImdbRating()}
+     				/#{movie.getRating().getKinoPoiskRating()}
+      			/#{movie.getRating().getRottenTomatosRating()} 
+ 					</h:column>
+					<h:column>
+						<f:facet name="header">
+              buttons
+      			</f:facet>
+
+						<h:commandButton value="edit" type="submit"
+							action="#{editService.editMovie(movie)}" outcome="editMovie" />
+						<h:commandButton value="delete"
+							action="#{movieService.delete(movie.getId())}" />
+					</h:column>
+				</h:dataTable>
+			</h:form>
+
+			<h:button value="Add" outcome="addMovie" />
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
+
+
+
+
