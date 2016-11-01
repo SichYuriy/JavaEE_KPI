@@ -94,7 +94,7 @@ public class MovieService implements ServiceCRUD<Movie> {
 		update(movie.getId(), movie.getProducerId(), movie.getTitle(), movie.getYear(), movie.getDuration(),
 				movie.getDescription(), movie.getRating().getImdbRating(), movie.getRating().getKinoPoiskRating(),
 				movie.getRating().getRottenTomatosRating());
-		return "idnex";
+		return "index";
 	}
 
 	@Override

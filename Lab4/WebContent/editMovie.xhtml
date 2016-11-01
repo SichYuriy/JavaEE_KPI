@@ -2,7 +2,6 @@
           "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
   xmlns:h="http://xmlns.jcp.org/jsf/html"
-  xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
   xmlns:f="http://xmlns.jcp.org/jsf/core"
   xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <head>
@@ -17,60 +16,63 @@
     </ui:define>
     <ui:define name="form">
       <h:form>
-        <p>
-          <h:outputLabel value="Title" />
+        <div class="form-group">
+          <h:outputLabel value="Title:" for="title" />
           <h:inputText name="title" value="#{editService.movie.title}"
-            required="true" />
-        </p>
-        <p>
-          <h:outputLabel value="Producer" />
-          <h:selectOneMenu required="true"
-            value="#{editService.movie.producerId}">
+            required="true" styleClass="form-control" id="title" />
+        </div>
+        <div class="form-group">
+          <h:outputLabel value="Producer:" for="producer" />
+          <h:selectOneMenu name="producer" required="true"
+            value="#{editService.movie.producerId}"
+            styleClass="form-control" id="producer">
             <f:selectItems value="#{producerService.getAll()}" var="p"
-              itemLabel="#{p.firstName}" itemValue="#{p.id}" />
+              itemLabel="#{p.firstName} #{p.lastName}"
+              itemValue="#{p.id}" />
           </h:selectOneMenu>
-        </p>
-        <p>
-          <h:outputLabel value="year" />
+        </div>
+        <div class="form-group">
+          <h:outputLabel value="Year:" for="year" />
           <h:inputText name="year" value="#{editService.movie.year}"
-            required="true" />
-        </p>
-        <p>
-          <h:outputLabel value="duration" />
+            required="true" styleClass="form-control" id="year" />
+        </div>
+        <div class="form-group">
+          <h:outputLabel value="Duration:" for="duration" />
           <h:inputText name="duration"
-            value="#{editService.movie.duration}" required="true" />
-        </p>
-        <p>
-          <h:outputLabel value="description" />
+            value="#{editService.movie.duration}" required="true"
+            styleClass="form-control" id="duration" />
+        </div>
+        <div class="form-group">
+          <h:outputLabel value="Description:" for="description" />
           <h:inputText name="description"
-            value="#{editService.movie.description}" required="true" />
-        </p>
-        <p>
-          <h:outputLabel value="imdbRating" />
+            value="#{editService.movie.description}" required="true"
+            styleClass="form-control" id="description" />
+        </div>
+        <div class="form-group">
+          <h:outputLabel value="imdbRating:" for="rating1" />
           <h:inputText name="imdbRating"
             value="#{editService.movie.rating.imdbRating}"
-            required="true" />
-        </p>
-        <p>
-          <h:outputLabel value="kinoPoinskRating" />
+            required="true" styleClass="form-control" id="rating1" />
+        </div>
+        <div class="form-group">
+          <h:outputLabel value="kinoPoinskRating:" for="rating2" />
           <h:inputText name="kinoPoinskRating"
             value="#{editService.movie.rating.kinoPoiskRating}"
-            required="true" />
-        </p>
-        <p>
-          <h:outputLabel value="rottenTomatosRating" />
+            required="true" styleClass="form-control" id="rating2" />
+        </div>
+        <div class="form-group">
+          <h:outputLabel value="rottenTomatosRating:"
+            for="rating3" />
           <h:inputText name="rottenTomatosRating"
             value="#{editService.movie.rating.rottenTomatosRating}"
-            required="true" />
-        </p>
+            required="true" styleClass="form-control" id="rating3" />
+        </div>
 
-        <p>
-          <h:commandButton type="submit" value="Submit"
-            action="#{movieService.update(editService.movie)}"
-            outcome="index" />
-          <h:commandButton outcome="index" value="cancel"
-            immidiate="true" />
-        </p>
+
+        <h:commandButton type="submit" value="Submit"
+          action="#{movieService.update(editService.movie)}"
+          styleClass="btn btn-success" />
+
 
 
       </h:form>

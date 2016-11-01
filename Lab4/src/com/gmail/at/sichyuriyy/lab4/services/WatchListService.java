@@ -31,8 +31,9 @@ public class WatchListService implements ServiceCRUD<WatchList> {
 		return "watchLists";
 	}
 	
-	public void create(WatchListBean list) {
+	public String create(WatchListBean list) {
 		create(list.getName());
+		return "watchLists";
 	}
 
 	@Override
@@ -40,17 +41,19 @@ public class WatchListService implements ServiceCRUD<WatchList> {
 		watchListDAO.update(list);
 	}
 
-	public void update(long id, String name) {
+	public String update(long id, String name) {
 		WatchList list = watchListDAO.getById(id);
 		list.setName(name);
 		update(list);
+		return "watchLists";
 	}
 	
-	public void update(WatchListBean list) { 
+	public String update(WatchListBean list) { 
 		update(list.getId(), list.getName());
+		return "watchLists";
 	}
 
-	public void deleteMovieFromWatchList(long listId, long movieId) {
+	public String deleteMovieFromWatchList(long listId, long movieId) {
 		WatchList watchList = watchListDAO.getById(listId);
 		for (Movie m : watchList.getMovies()) {
 			if (m.getId() == movieId) {
@@ -59,15 +62,17 @@ public class WatchListService implements ServiceCRUD<WatchList> {
 			}
 		}
 		update(watchList);
+		return "watchLists";
 	}
 	
-	public void addMovieToWatchList(long listId, long movieId) {
+	public String addMovieToWatchList(long listId, long movieId) {
 		WatchList wl = watchListDAO.getById(listId);
 		Movie m = movieDAO.getById(movieId);
 		
 		wl.getMovies().add(m);
 		
 		watchListDAO.update(wl);
+		return "watchLists";
 	}
 
 	@Override
