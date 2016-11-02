@@ -23,7 +23,7 @@
             #{movie.title}
           </h:column>
           <h:column>
-            <h:commandButton value="delete"
+            <h:commandButton value="delete" type="submit"
               action="#{watchListService.deleteMovieFromWatchList(editService.watchList.id, movie.id)}"
               styleClass="btn btn-danger" />
           </h:column>
