@@ -1,19 +1,27 @@
 package com.gmail.at.sichyuriyy.lab4.jpa.entitiesDTO;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
+import com.gmail.at.sichyuriyy.lab4.jpa.dao.WatchListDAO;
 import com.gmail.at.sichyuriyy.lab4.jpa.entities.Movie;
 import com.gmail.at.sichyuriyy.lab4.jpa.entities.Producer;
 import com.gmail.at.sichyuriyy.lab4.jpa.entities.WatchList;
+import com.gmail.at.sichyuriyy.lab4.services.WatchListService;
 
 @ManagedBean(name="editService")
 @SessionScoped
 public class SessionServiceBean {
+    
+    @ManagedProperty(value = "#{watchListService}")
+    private WatchListService watchListService;
 	
 	private MovieBean movie;
 	private ProducerBean producer;
 	private WatchListBean watchList;
+	
+	private WatchListDAO watchListDAO = WatchListDAO.getInstance();
 	
 	public String addMovieToWatchList(Movie movie) {
 		this.movie = new MovieBean(movie);
@@ -58,6 +66,23 @@ public class SessionServiceBean {
 	public void setWatchList(WatchListBean watchList) {
 		this.watchList = watchList;
 	}
+	
+	public String saveMovieInWatchList(long listId, long movieId) {
+	    watchListService.addMovieToWatchList(listId, movieId);
+	    this.watchList = new WatchListBean(watchListDAO.getById(listId));
+	    return "editWatchList";   
+	}
+
+    public WatchListService getWatchListService() {
+        return watchListService;
+    }
+
+    public void setWatchListService(WatchListService watchListService) {
+        this.watchListService = watchListService;
+    }
+	
+	
+    
 	
 
 }

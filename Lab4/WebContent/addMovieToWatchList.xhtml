@@ -36,7 +36,7 @@
         </div>
         
         <h:commandButton type="submit" value="Submit"
-          action="#{watchListService.addMovieToWatchList(editService.movie.watchListId, editService.movie.id)}"
+          action="#{editService.saveMovieInWatchList(editService.movie.watchListId, editService.movie.id)}"
           styleClass="btn btn-success" />
       </h:form>
     </ui:define>
