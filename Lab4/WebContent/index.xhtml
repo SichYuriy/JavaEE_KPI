@@ -5,8 +5,6 @@
   xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
   xmlns:m="http://mytaglib/facelets">
 
-<h:head>
-</h:head>
 <h:body>
   <ui:composition template="./dataViewTemplate.xhtml">
     <ui:define name="title">Movies</ui:define>
@@ -15,9 +13,9 @@
       <m:myTag label1="Hello," label2=" myTag!" />
     </ui:define>
     <ui:define name="content">
-      <h:form>
+      <h:form id="moviesTable">
         <h:dataTable value="#{movieService.getAll()}" var="movie"
-          styleClass="table table-bordered table-hover">
+          styleClass="table table-bordered table-hover" >
           <h:column>
             <f:facet name="header">
               Title
@@ -62,14 +60,15 @@
               styleClass="btn btn-success" />
             <h:commandButton value="delete"
               action="#{movieService.delete(movie.getId())}"
-              styleClass="btn btn-danger" />
+              styleClass="btn btn-danger">
+              <f:ajax render="moviesTable"/>
+            </h:commandButton>
           </h:column>
           <h:column>
 
             <h:commandButton value="+" type="submit"
               action="#{editService.addMovieToWatchList(movie)}"
               styleClass="btn btn-primary" />
-
           </h:column>
         </h:dataTable>
       </h:form>

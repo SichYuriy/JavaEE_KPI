@@ -72,6 +72,12 @@ public class SessionServiceBean {
 	    this.watchList = new WatchListBean(watchListDAO.getById(listId));
 	    return "editWatchList";   
 	}
+	
+	public String deleteMovieFromWatchList(long listId, long movieId) {
+	    watchListService.deleteMovieFromWatchList(listId, movieId);
+	    this.watchList = new WatchListBean(watchListService.getById(listId));
+	    return "editWatchList";
+	}
 
     public WatchListService getWatchListService() {
         return watchListService;

@@ -62,7 +62,7 @@ public class WatchListService implements ServiceCRUD<WatchList> {
 			}
 		}
 		update(watchList);
-		return "watchLists";
+		return "editWatchList";
 	}
 	
 	public String addMovieToWatchList(long listId, long movieId) {

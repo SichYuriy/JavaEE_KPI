@@ -13,7 +13,7 @@
       <h2>WatchLists:</h2>
     </ui:define>
     <ui:define name="content">
-      <h:form>
+      <h:form id="watchListsTable">
         <h:dataTable value="#{watchListService.getAll()}" var="list"
           styleClass="table table-bordered table-hover">
           <h:column>
@@ -30,7 +30,9 @@
               styleClass="btn btn-success" />
             <h:commandButton value="delete"
               action="#{watchListService.delete(list.getId())}"
-              styleClass="btn btn-danger" />
+              styleClass="btn btn-danger">
+              <f:ajax render="watchListsTable"/>
+            </h:commandButton>
           </h:column>
         </h:dataTable>
       </h:form>

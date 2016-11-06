@@ -13,7 +13,7 @@
       <h2>#{editService.watchList.name}:</h2>
     </ui:define>
     <ui:define name="content">
-      <h:form>
+      <h:form id="listTable">
         <h:dataTable value="#{editService.watchList.movies}" var="movie"
           styleClass="table table-bordered table-hover">
           <h:column>
@@ -23,9 +23,11 @@
             #{movie.title}
           </h:column>
           <h:column>
-            <h:commandButton value="delete" type="submit"
-              action="#{watchListService.deleteMovieFromWatchList(editService.watchList.id, movie.id)}"
-              styleClass="btn btn-danger" />
+            <h:commandButton value="delete"
+              action="#{editService.deleteMovieFromWatchList(editService.watchList.id, movie.id)}"
+              styleClass="btn btn-danger">
+              <f:ajax render="listTable"/>
+            </h:commandButton>
           </h:column>
         </h:dataTable>
       </h:form>

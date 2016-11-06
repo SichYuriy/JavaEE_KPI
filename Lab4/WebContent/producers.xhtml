@@ -13,7 +13,7 @@
       <h2>Producers:</h2>
     </ui:define>
     <ui:define name="content">
-      <h:form>
+      <h:form id="producersTable">
         <h:dataTable value="#{producerService.getAll()}" var="producer"
           styleClass="table table-bordered table-hover">
           <h:column>
@@ -36,7 +36,9 @@
               styleClass="btn btn-success" />
             <h:commandButton value="delete"
               action="#{producerService.delete(producer.getId())}"
-              styleClass="btn btn-danger" />
+              styleClass="btn btn-danger">
+              <f:ajax render="producersTable"/>
+            </h:commandButton>
           </h:column>
         </h:dataTable>
       </h:form>
