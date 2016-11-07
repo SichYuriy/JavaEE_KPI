@@ -1,0 +1,13 @@
+com\gmail\at\sichyuriyy\lab4\services\MovieService.class
+com\gmail\at\sichyuriyy\lab4\jpa\dao\ProducerDAO.class
+com\gmail\at\sichyuriyy\lab4\jpa\entities\Rating.class
+com\gmail\at\sichyuriyy\lab4\services\WatchListService.class
+com\gmail\at\sichyuriyy\lab4\jpa\dao\WatchListDAO.class
+com\gmail\at\sichyuriyy\lab4\jpa\entities\Producer.class
+com\gmail\at\sichyuriyy\lab4\services\ProducerService.class
+com\gmail\at\sichyuriyy\lab4\jpa\dao\MovieDAO.class
+com\gmail\at\sichyuriyy\lab4\jpa\entities\WatchList.class
+com\gmail\at\sichyuriyy\lab4\jpa\entities\Movie.class
+com\gmail\at\sichyuriyy\lab4\jpa\dao\SingleEntityManagerFactory.class
+com\gmail\at\sichyuriyy\lab4\jpa\dao\DAO.class
+com\gmail\at\sichyuriyy\lab4\services\ServiceCRUD.class
