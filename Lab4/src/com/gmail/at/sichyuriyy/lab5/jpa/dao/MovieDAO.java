@@ -44,12 +44,15 @@ public class MovieDAO extends AbstractDAO<Movie> {
 		List<Movie> movies = entityManager.createNamedQuery("findAllMovies", Movie.class).getResultList();
 		return movies;
 	}
-
+	
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	@Override
 	public Movie getById(long id) {
 		Movie movie = entityManager.find(Movie.class, id);
 		return movie;
 	}
+	
+	
 
 	
 

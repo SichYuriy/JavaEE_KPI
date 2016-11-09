@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<facelet-taglib>
-   <namespace>http://mytaglib/facelets</namespace>
-   <tag>
-      <tag-name>myTag</tag-name>
-      <source>myTaglib/myTag.xhtml</source>
-   </tag>
-</facelet-taglib>

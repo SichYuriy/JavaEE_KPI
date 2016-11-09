@@ -1,8 +1,0 @@
-/build/
-.classpath
-.project
-*.jar
-.settings/
-target/
-WebContent/styles/
-WebContent/META-INF/

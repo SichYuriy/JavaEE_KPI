@@ -12,7 +12,6 @@ import com.gmail.at.sichyuriyy.lab5.jpa.entities.WatchList;
 @Stateless
 public class WatchListDAO extends AbstractDAO<WatchList> {
 	
-	
 	public WatchListDAO() {
 		super();
 	}
@@ -20,12 +19,12 @@ public class WatchListDAO extends AbstractDAO<WatchList> {
 	@Override
 	public void create(WatchList watchList) {
 		entityManager.persist(watchList);
-
 	}
 
 	@Override
 	public void delete(long id) {
-		entityManager.remove(id);
+	    WatchList wl = entityManager.find(WatchList.class, id);
+		entityManager.remove(wl);
 		
 	}
 
