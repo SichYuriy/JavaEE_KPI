@@ -12,7 +12,7 @@ import com.gmail.at.sichyuriyy.lab5.jpa.entities.WatchList;
 
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 @Stateless
-public class ProducerDAO extends DAO<Producer> {
+public class ProducerDAO extends AbstractDAO<Producer> {
 
 	public ProducerDAO() {
 		super();

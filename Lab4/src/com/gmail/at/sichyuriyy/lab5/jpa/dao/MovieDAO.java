@@ -12,7 +12,7 @@ import com.gmail.at.sichyuriyy.lab5.jpa.entities.WatchList;
 
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 @Stateless
-public class MovieDAO extends DAO<Movie> {
+public class MovieDAO extends AbstractDAO<Movie> {
 	
 	public MovieDAO() {
 		super();

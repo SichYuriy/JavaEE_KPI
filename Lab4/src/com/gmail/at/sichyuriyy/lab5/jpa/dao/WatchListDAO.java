@@ -10,7 +10,7 @@ import com.gmail.at.sichyuriyy.lab5.jpa.entities.WatchList;
 
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 @Stateless
-public class WatchListDAO extends DAO<WatchList> {
+public class WatchListDAO extends AbstractDAO<WatchList> {
 	
 	
 	public WatchListDAO() {

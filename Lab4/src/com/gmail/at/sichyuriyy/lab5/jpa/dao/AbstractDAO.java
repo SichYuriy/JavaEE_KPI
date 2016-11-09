@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 
 
 @Stateless
-public abstract class DAO<T> {
+public abstract class AbstractDAO<T> {
 	
 	@PersistenceContext(unitName="Lab5")
 	protected EntityManager entityManager;
