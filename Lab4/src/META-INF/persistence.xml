@@ -2,13 +2,13 @@
 <persistence version="2.1"
 	xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-	<persistence-unit name="Lab4">
+	<persistence-unit name="Lab5">
 		
-		<non-jta-data-source>java:/moviesDB2</non-jta-data-source>
-		<class>com.gmail.at.sichyuriyy.lab4.jpa.entities.Producer</class>
-		<class>com.gmail.at.sichyuriyy.lab4.jpa.entities.Movie</class>
-		<class>com.gmail.at.sichyuriyy.lab4.jpa.entities.Rating</class>
-		<class>com.gmail.at.sichyuriyy.lab4.jpa.entities.WatchList</class>
+		<jta-data-source>java:/moviesDB2</jta-data-source>
+		<class>com.gmail.at.sichyuriyy.lab5.jpa.entities.Producer</class>
+		<class>com.gmail.at.sichyuriyy.lab5.jpa.entities.Movie</class>
+		<class>com.gmail.at.sichyuriyy.lab5.jpa.entities.Rating</class>
+		<class>com.gmail.at.sichyuriyy.lab5.jpa.entities.WatchList</class>
 
 		<properties>
 			<property name="hibernate.hbm2ddl.auto" value="update" />
