@@ -3,20 +3,21 @@ package com.gmail.at.sichyuriyy.lab5.beans;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import com.gmail.at.sichyuriyy.lab5.jpa.entities.Movie;
 import com.gmail.at.sichyuriyy.lab5.services.MovieService;
+import com.gmail.at.sichyuriyy.lab5.services.MovieServiceBean;
 
 @ManagedBean(name="movieFilter")
 @SessionScoped
-public class MovieFilter {
+public class MovieFilterBean {
     
     private String nameFilter;
     
-    @ManagedProperty(value="#{movieService}")
+    @EJB
     private MovieService movieService;
     
     public List<Movie> getMovies() {
@@ -48,7 +49,7 @@ public class MovieFilter {
         return movieService;
     }
 
-    public void setMovieService(MovieService movieService) {
+    public void setMovieService(MovieServiceBean movieService) {
         this.movieService = movieService;
     }
 }
