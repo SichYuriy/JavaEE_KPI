@@ -3,15 +3,23 @@ package com.gmail.at.sichyuriyy.lab5.services;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
+import javax.inject.Named;
 
 import com.gmail.at.sichyuriyy.lab5.jpa.dao.ProducerDAO;
 import com.gmail.at.sichyuriyy.lab5.jpa.entities.Producer;
 import com.gmail.at.sichyuriyy.lab5.jpa.entitiesDTO.ProducerBean;
 
-@ManagedBean(name="producerService")
-@ApplicationScoped
+@Named
+@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+@TransactionManagement(TransactionManagementType.CONTAINER)
+@LocalBean
+@Stateless
 public class ProducerService implements ServiceCRUD<Producer> {
 	
     @EJB

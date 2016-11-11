@@ -2,13 +2,17 @@ package com.gmail.at.sichyuriyy.lab5.services;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
+import javax.inject.Named;
+
+import org.apache.log4j.Logger;
 
 import com.gmail.at.sichyuriyy.lab5.jpa.dao.MovieDAO;
 import com.gmail.at.sichyuriyy.lab5.jpa.dao.WatchListDAO;
@@ -16,16 +20,24 @@ import com.gmail.at.sichyuriyy.lab5.jpa.entities.Movie;
 import com.gmail.at.sichyuriyy.lab5.jpa.entities.WatchList;
 import com.gmail.at.sichyuriyy.lab5.jpa.entitiesDTO.WatchListBean;
 
-@ManagedBean(name = "watchListService")
-@TransactionManagement(TransactionManagementType.CONTAINER)
+@Named
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-@ApplicationScoped
+@TransactionManagement(TransactionManagementType.CONTAINER)
+@LocalBean
+@Stateless
 public class WatchListService implements ServiceCRUD<WatchList> {
+    
+    private Logger logger;
 
     @EJB
     private WatchListDAO watchListDAO;
     @EJB
     private MovieDAO movieDAO;
+    
+    @PostConstruct
+    private void init() {
+        logger = Logger.getLogger(WatchListService.class);
+    }
 
     @Override
     public void create(WatchList list) {
@@ -99,6 +111,7 @@ public class WatchListService implements ServiceCRUD<WatchList> {
 
     @Override
     public List<WatchList> getAll() {
+        logger.info("getAll");
         return watchListDAO.getAll();
     }
 

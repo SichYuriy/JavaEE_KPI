@@ -2,7 +2,6 @@ package com.gmail.at.sichyuriyy.lab5.jpa.entitiesDTO;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import com.gmail.at.sichyuriyy.lab5.jpa.dao.WatchListDAO;
@@ -15,7 +14,7 @@ import com.gmail.at.sichyuriyy.lab5.services.WatchListService;
 @SessionScoped
 public class SessionServiceBean {
     
-    @ManagedProperty(value = "#{watchListService}")
+    @EJB
     private WatchListService watchListService;
 	
 	private MovieBean movie;

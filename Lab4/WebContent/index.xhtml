@@ -15,12 +15,14 @@
     <ui:define name="content">
       <h:form id="moviesTable">
         <div class="form-group">
+        
           <h:outputLabel value="Name filter" for="nameFilter" />
           <h:inputText value="#{movieFilter.nameFilter}" id="nameFilter">
             <f:ajax render="moviesTable"
               execute="nameFilter" event="valueChange" />
           </h:inputText>
         </div>
+         
 
         <h:dataTable value="#{movieFilter.getMovies()}" var="movie"
           styleClass="table table-bordered table-hover">

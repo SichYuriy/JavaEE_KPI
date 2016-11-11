@@ -9,7 +9,6 @@ import javax.faces.bean.SessionScoped;
 
 import com.gmail.at.sichyuriyy.lab5.jpa.entities.Movie;
 import com.gmail.at.sichyuriyy.lab5.services.MovieService;
-import com.gmail.at.sichyuriyy.lab5.services.MovieServiceBean;
 
 @ManagedBean(name="movieFilter")
 @SessionScoped
@@ -49,7 +48,7 @@ public class MovieFilterBean {
         return movieService;
     }
 
-    public void setMovieService(MovieServiceBean movieService) {
+    public void setMovieService(MovieService movieService) {
         this.movieService = movieService;
     }
 }
