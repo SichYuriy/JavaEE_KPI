@@ -61,19 +61,30 @@ public class MovieDAO extends AbstractDAO<Movie> {
         return movie;
     }
 
-    @TransactionAttribute(TransactionAttributeType.NEVER)
-    public void neverExample() {
-        logger.info("from never");
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void requiredExample() {
+        logger.info("from required");
     }
-
+    
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    public void requiresNewExample() {
+        logger.info("from requiresNew");
+    }
     @TransactionAttribute(TransactionAttributeType.MANDATORY)
     public void mandatoryExample() {
         logger.info("from mandatory");
     }
-
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public void notSupportedExample() {
+        logger.info("from notSupported");
+    }
     @TransactionAttribute(TransactionAttributeType.SUPPORTS)
     public void supportsExample() {
         logger.info("from supports");
+    }
+    @TransactionAttribute(TransactionAttributeType.NEVER)
+    public void neverExample() {
+        logger.info("from never");
     }
 
 }

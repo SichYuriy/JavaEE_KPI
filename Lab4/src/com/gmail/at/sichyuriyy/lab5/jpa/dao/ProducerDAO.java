@@ -15,7 +15,6 @@ import org.apache.log4j.Logger;
 
 import com.gmail.at.sichyuriyy.lab5.jpa.entities.Movie;
 import com.gmail.at.sichyuriyy.lab5.jpa.entities.Producer;
-import com.gmail.at.sichyuriyy.lab5.jpa.entities.WatchList;
 
 @TransactionManagement(TransactionManagementType.BEAN)
 @Stateless

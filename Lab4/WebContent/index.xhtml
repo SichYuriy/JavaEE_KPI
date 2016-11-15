@@ -15,14 +15,14 @@
     <ui:define name="content">
       <h:form id="moviesTable">
         <div class="form-group">
-        
+
           <h:outputLabel value="Name filter" for="nameFilter" />
           <h:inputText value="#{movieFilter.nameFilter}" id="nameFilter">
-            <f:ajax render="moviesTable"
-              execute="nameFilter" event="valueChange" />
+            <f:ajax render="moviesTable" execute="nameFilter"
+              event="valueChange" />
           </h:inputText>
         </div>
-         
+
 
         <h:dataTable value="#{movieFilter.getMovies()}" var="movie"
           styleClass="table table-bordered table-hover">
@@ -81,10 +81,31 @@
               styleClass="btn btn-primary" />
           </h:column>
         </h:dataTable>
-      </h:form>
 
-      <h:button value="Add movie" outcome="addMovie"
-        styleClass="btn btn-primary" />
+
+        <h:button value="Add movie" outcome="addMovie"
+          styleClass="btn btn-primary" />
+        <div>
+          <h:commandButton value="required"
+            action="#{movieService.requiredExample()}"
+            styleClass="btn btn-default" />
+          <h:commandButton value="requiresNew"
+            action="#{movieService.requiresNewExample()}"
+            styleClass="btn btn-default" />
+          <h:commandButton value="mandatory"
+            action="#{movieService.mandatoryExample()}"
+            styleClass="btn btn-default" />
+          <h:commandButton value="notSupported"
+            action="#{movieService.notSupportedExample()}"
+            styleClass="btn btn-default" />
+          <h:commandButton value="supports"
+            action="#{movieService.supportsExample()}"
+            styleClass="btn btn-default" />
+          <h:commandButton value="never"
+            action="#{movieService.neverExample()}"
+            styleClass="btn btn-default" />
+        </div>
+      </h:form>
     </ui:define>
   </ui:composition>
 </h:body>

@@ -110,9 +110,6 @@ public class MovieService implements ServiceCRUD<Movie> {
 
 	@Override
 	public void delete(long id) {
-	    movieDAO.mandatoryExample();
-        //movieDAO.neverExample();
-        //movieDAO.supportsExample();
 		movieDAO.delete(id);
 	}
 
@@ -127,5 +124,29 @@ public class MovieService implements ServiceCRUD<Movie> {
 	   
 		return movieDAO.getAll();
 	}
+	
+	public void requiredExample() {
+        movieDAO.requiredExample();
+    }
+
+    public void requiresNewExample() {
+        movieDAO.requiresNewExample();
+    }
+
+    public void mandatoryExample() {
+        movieDAO.mandatoryExample();
+    }
+
+    public void notSupportedExample() {
+        movieDAO.notSupportedExample();
+    }
+
+    public void supportsExample() {
+        movieDAO.supportsExample();
+    }
+
+    public void neverExample() {
+        movieDAO.neverExample();
+    }
 
 }
