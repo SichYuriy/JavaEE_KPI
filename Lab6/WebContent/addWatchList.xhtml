@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<head>
+<title>Add WatchList</title>
+</head>
+
+<h:head>
+</h:head>
+<h:body>
+  <ui:composition template="./formTemplate.xhtml">
+    <ui:define name="title">Add WatchList</ui:define>
+    <ui:define name="header">
+      <h2>Add new WatchList</h2>
+    </ui:define>
+    <ui:define name="form">
+      <h:form>
+        <div class="form-group">
+          <h:outputLabel value="Name:" for="name" />
+          <h:inputText name="name" value="#{watchList.name}"
+            required="true" styleClass="form-control" 
+            id="name"/>
+        </div>
+       
+        <h:commandButton type="submit" value="Submit"
+          action="#{watchListService.create(watchList)}"
+          styleClass="btn btn-success" />
+      </h:form>
+    </ui:define>
+  </ui:composition>
+</h:body>
+
+
+
+</html>
