@@ -111,7 +111,7 @@ public class WatchListService implements ServiceCRUD<WatchList> {
 
     @Override
     public List<WatchList> getAll() {
-        logger.info("getAll");
+        
         return watchListDAO.getAll();
     }
 
