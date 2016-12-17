@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:m="http://mytaglib/facelets">
+
+<h:body>
+  <ui:composition template="./dataViewTemplate.xhtml">
+    <ui:define name="title">Movies</ui:define>
+    <ui:define name="header">
+      <h2>Movies:</h2>
+      <m:myTag label1="Hello," label2=" myTag!" />
+    </ui:define>
+    <ui:define name="content">
+      <h:form id="moviesTable">
+        <div class="form-group">
+
+          <h:outputLabel value="Name filter" for="nameFilter" />
+          <h:inputText value="#{movieFilter.nameFilter}" id="nameFilter">
+            <f:ajax render="moviesTable" execute="nameFilter"
+              event="valueChange" />
+          </h:inputText>
+        </div>
+
+
+        <h:dataTable value="#{movieFilter.getMovies()}" var="myVar"
+          styleClass="table table-bordered table-hover">
+          <h:column>
+            <f:facet name="header">
+              Title
+      			</f:facet>
+      			#{myVar.title}
+   					</h:column>
+          <h:column>
+            <f:facet name="header">
+              	Producer
+     					</f:facet>
+     					#{myVar.producer.firstName} #{myVar.producer.lastName}
+ 						</h:column>
+          <h:column>
+            <f:facet name="header">
+              Year
+     				</f:facet>
+     				#{myVar.year}
+ 					</h:column>
+          <h:column>
+            <f:facet name="header">
+              Duration
+      			</f:facet>
+      			#{myVar.duration}
+   				</h:column>
+          <h:column>
+            <f:facet name="header">
+              Description
+     				</f:facet>
+      			#{myVar.description}
+					</h:column>
+          <h:column>
+            <f:facet name="header">
+              Rating
+      			</f:facet>
+      			#{myVar.rating.imdbRating}
+     				/#{myVar.rating.kinoPoiskRating}
+      			/#{myVar.rating.rottenTomatosRating} 
+ 					</h:column>
+          <h:column>
+            <h:commandButton value="edit" type="submit"
+              action="#{editService.testClass(myVar)}"
+              styleClass="btn btn-success" />
+            <h:commandButton value="delete"
+              action="#{movieService.delete(myVar.getId())}"
+              styleClass="btn btn-danger">
+              <f:ajax render="moviesTable" />
+            </h:commandButton>
+          </h:column>
+          <h:column>
+
+            <h:commandButton value="+" type="submit"
+              action="#{editService.addMovieToWatchList(myVar)}"
+              styleClass="btn btn-primary" />
+          </h:column>
+        </h:dataTable>
+
+
+        <h:button value="Add movie" outcome="addMovie"
+          styleClass="btn btn-primary" />
+        
+      </h:form>
+    </ui:define>
+  </ui:composition>
+</h:body>
+</html>
+
+
+
+

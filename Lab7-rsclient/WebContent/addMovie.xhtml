@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<head>
+<title>Add Movie</title>
+</head>
+
+<h:head>
+</h:head>
+<h:body>
+  <ui:composition template="./formTemplate.xhtml">
+    <ui:define name="title">Add movie</ui:define>
+    <ui:define name="header">
+      <h2>Add new movie</h2>
+    </ui:define>
+    <ui:define name="form">
+      <h:form>
+        <div class="form-group">
+          <h:outputLabel value="Title:" for="title" />
+          <h:inputText name="title" value="#{movie.title}"
+            required="true" styleClass="form-control" 
+            id="title"/>
+        </div>
+        <div class="form-group">
+          <h:outputLabel value="Producer:" for="producer" />
+          <h:selectOneMenu name="producer" required="true"
+            value="#{movie.producerId}" styleClass="form-control"
+            id="producer">
+            <f:selectItems value="#{producerService.getAll()}" var="p"
+              itemLabel="#{p.firstName} #{p.lastName}"
+              itemValue="#{p.id}" />
+          </h:selectOneMenu>
+        </div>
+        <div class="form-group">
+          <h:outputLabel value="Year:" for="year" />
+          <h:inputText name="year" value="#{movie.year}" required="true"
+            styleClass="form-control" id="year"/>
+        </div>
+        <div class="form-group">
+          <h:outputLabel value="Duration:" for="duration" />
+          <h:inputText name="duration" value="#{movie.duration}"
+            required="true" styleClass="form-control" id="duration"/>
+        </div>
+        <div class="form-group">
+          <h:outputLabel value="Description:" for="description" />
+          <h:inputText name="description" value="#{movie.description}"
+            required="true" styleClass="form-control" id="description"/>
+        </div>
+        <div class="form-group">
+          <h:outputLabel value="imdbRating:" for="rating1" />
+          <h:inputText name="imdbRating"
+            value="#{movie.rating.imdbRating}" required="true"
+            styleClass="form-control" id="rating1"/>
+        </div>
+        <div class="form-group">
+          <h:outputLabel value="kinoPoinskRating:" for="rating2" />
+          <h:inputText name="kinoPoinskRating"
+            value="#{movie.rating.kinoPoiskRating}" required="true"
+            styleClass="form-control" id="rating2"/>
+        </div>
+        <div class="form-group">
+          <h:outputLabel value="rottenTomatosRating:"
+            for="rating3" />
+          <h:inputText name="rottenTomatosRating"
+            value="#{movie.rating.rottenTomatosRating}" required="true"
+            styleClass="form-control" id="rating3"/>
+        </div>
+        <h:commandButton type="submit" value="Submit"
+          action="#{movieService.create(movie)}"
+          styleClass="btn btn-success" />
+      </h:form>
+    </ui:define>
+  </ui:composition>
+</h:body>
+
+
+
+</html>
